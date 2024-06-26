@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>infobox show[one/Multiple]</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{height:95%;}body{padding:0;margin:0;}</style>
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/style.css" />
+
+
+</head>
+<body>
+
+
+<!-- MAP[START] -->
+<h1>台北グルメMAP</h1>
+<div id="myMap" style="width:100vw;height :calc(100vh -60px);"></div>
+<button class="changeView" type="button">Change View</button>
+<button class="reset" type="button">Reset</button>
+
+<!-- MAP[END] -->
+
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/script.js"></script>
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Au8XMMj2kPF564gBaBwjEKtsXtHatCrbIROyAZndzX1Er2VCMlkx0DGtqn7VfYQI' async defer></script>
+<script src="../js/BmapQuery.js"></script>
+<script>
+    //init
+    function GetMap() {
+        //------------------------------------------------------------------------
+        //1. Instance
+        //------------------------------------------------------------------------
+        const map = new Bmap("#myMap");
+        //------------------------------------------------------------------------
+        //2. Display Map
+        //------------------------------------------------------------------------
+        map.startMap(25.050846, 121.538333, "load", 12);
+
+        //----------------------------------------------------
+        //3. Infobox
+        //   options = new Array();
+        //   options[index] = { lat, lon, width, height, title, pinColor, description, show };
+        //----------------------------------------------------
+        const options = [];
+        options[0]={
+            "lat":25.041311, 
+            "lon":121.526802,
+            "title":"TAIPEI",
+            "pinColor":"#ff0000",
+            "height": 250,
+            "width":250,
+            "description": '①巧之味手工水（チャオジーウェイソウゴンシュエ）<br><img src="work/巧之味手工水.webp" width="300">',
+            "show":false
+        };
+        options[1]={
+            "lat":25.024576, 
+            "lon":121.556635,
+            "title":"TAIPEI",
+            "pinColor":"#ff0000",
+            "height":250,
+            "width":250,
+            "description": '②二吉軒豆乳（SOYPRESSO）<br><img src="work/二吉軒豆乳（SOYPRESSO）.webp" width="300">',
+            "show":false
+        };
+        options[2]={
+            "lat":25.038877, 
+            "lon":121.551628,
+            "title":"TAIPEI",
+            "pinColor":"#ff0000",
+            "height":250,
+            "width":250,
+            "description": '③圍爐（ウェイルー）<br><img src="work/圍爐（ウェイルー）.webp" width="300">',
+            "show":false
+        };
+
+        options[3]={
+            "lat":25.058771, 
+            "lon":121.520033,
+            "title":"TAIPEI",
+            "pinColor":"#ff0000",
+            "height":250,
+            "width":250,
+            "description": '④冰讚 （ピンザン）<br><img src="work/冰讚.webp" width="300">',
+            "show":false
+        };
+
+        options[4]={
+            "lat":25.030373, 
+            "lon":121.554688,
+            "title":"TAIPEI",
+            "pinColor":"#ff0000",
+            "height":250,
+            "width":250,
+            "description": '⑤正好鮮肉小籠湯包（ヂェンハオシエンルゥオシャオロンタンバオ）<br><img src="work/正好鮮肉小籠湯包（ヂェンハオシエンルゥオシャオロンタンバオ）.webp" width="300">',
+            "show":false
+        };
+
+
+
+
+        //----------------------------------------------------
+        //4. Switch infoboxs
+        //   infoboxLayers(options, true); //true=one, false=Multiple
+        //----------------------------------------------------
+        map.infoboxLayers(options,true);
+
+
+
+        $(".changeView").on("click", function(){
+
+
+    // ex1) after 3 seconds.
+    setTimeout(function(){
+        map.changeMap(25.041311, 121.526802, "canvasLight",15);
+
+        // let location1 = new Microsoft.Maps.Location(options[0].lat, options[0].lon);
+        // infobox.setOptions({
+        // location: location1,
+        // title: options[0].title,
+        // description: options[0].description,
+        // visible: true,
+        // height: options[0].height,
+        // width: options[0].width
+        // });
+
+        const location = new Microsoft.Maps.Location(25.041311, 121.526802)
+        var infobox = new Microsoft.Maps.Infobox(location, {
+            title: 'Map Center',
+            description: 'Seattle'
+        });
+
+        //Assign the infobox to a map instance.
+        infobox.setMap(map);
+
+    },3000);
+
+        
+    // ex2) after 6 seconds.//時間が上書きされてしまうので、時間をずらす
+    setTimeout(function(){
+        map.changeMap(25.024576, 121.556635, "canvasLight", 15);
+    },6000);
+
+    // ex3) after 9 seconds.//時間が上書きされてしまうので、時間をずらす
+    setTimeout(function(){
+        map.changeMap(25.038877, 121.551628, "canvasLight", 15);
+    },9000);
+
+    // ex4) after12 seconds.//時間が上書きされてしまうので、時間をずらす
+    setTimeout(function(){
+        map.changeMap(25.058771, 121.520033, "canvasLight", 15);
+    },12000);
+
+    // ex5) after15 seconds.//時間が上書きされてしまうので、時間をずらす
+    setTimeout(function(){
+        map.changeMap(25.030373, 121.554688, "canvasLight", 15);
+    },15000);
+
+
+
+});
+
+    $(".reset").on("click",function(){
+        //最初の地図、infoboxに戻る
+        map.startMap(25.050846, 121.538333, "load", 12);
+        map.infoboxLayers(options, true);
+    });
+
+
+    }
+
+
+</script>
+</body>
+</html>
